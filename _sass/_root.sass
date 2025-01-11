@@ -1,0 +1,47 @@
+$fg:           hsl(0, 0%, 80%)
+$dim:          hsl(0,0%,60%)
+$bg:           hsl(0, 0%, 4%)
+$blue:         hsl(240, 80%, 40%)
+$link:         hsl(210, 100%, 50%)
+$red:          hsl(0, 80%, 40%)
+$yellow:       hsl(60, 80%, 40%)
+$dim-opacity:  0.4
+$dim-bg:       rgba($bg, .8)
+$dim-red:      rgba($red, $dim-opacity)
+$dim-blue:     rgba($blue, $dim-opacity)
+$dim-link:     rgba($link, $dim-opacity)
+$dim-cyan:     hsl(210, 50%, 80%)
+$mobile_width: 650px // was 40em, change in _includes/scripts/helpers.coffee
+$blink:        1.2s
+
+\:root
+
+  // COLORS
+  --bg:           #{$bg}
+  --dim:          #{$dim}
+  // --seven:        hsl(0, 0%, 7%)
+  --ten:          hsl(0, 0%, 10%)
+  --twenty:       hsl(0, 0%, 20%)
+  --grey:         hsl(0, 0%, 40%)
+  --fg:           #{$fg}
+  --blue:         #{$blue}
+  --link:         #{$link}
+  --red:          #{$red}
+  --yellow:       #{$yellow}
+  --dim-bg:       #{$dim-bg}
+  --dim-red:      #{$dim-red}
+  --dim-blue:     #{$dim-blue}
+  --dim-link:     #{$dim-link}
+  --dim-cyan:     #{$dim-cyan}
+
+  // TYPOGRAPHY
+  --ff-body:        system-ui
+  --fs-body:        20px
+  --ff-headings:    'Eurostile'
+  // Monospace Font
+  --ff-code:        monospace, 'Lucida Console', 'Consolas'
+
+  // SPACES
+  --padding-layout: .5em .6em
+  // EFFECTS
+  --blink:          1s

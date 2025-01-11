@@ -1,0 +1,13 @@
+details
+  // background-color: var(--ten)
+  // padding: .5em
+  summary
+    @extend .link
+    &:active
+      color: var(--link)
+      &::marker
+        color: var(--grey)
+    &:hover
+      text-decoration: none
+      &::marker
+        @extend .fg

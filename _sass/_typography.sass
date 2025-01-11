@@ -1,0 +1,41 @@
+body
+  @extend .fg, .bg, .mpz
+  font-size: var(--fs-body)
+  font-family: var(--ff-body)
+  line-height: 1.2
+h1, h2, h3
+  font-family: var(--ff-headings)
+  margin-block: .5em
+main > h1
+  @extend .uppercase
+header
+  h1
+    @extend .uppercase
+    font-family: 'Eurostile Extended'
+    margin: 0
+  img.logo
+    width: .75em
+    margin-right: .2em
+
+.label
+  @extend .uppercase
+  font-family: 'Eurostile'
+  color: var(--grey)
+
+.description
+  color: var(--grey)
+  margin-block: 0.2em
+  font-size: smaller
+
+footer, aside, header [aria-label]::before, .footnotes
+  font-size: smaller
+  color: var(--dim)
+
+.footnotes
+  border-top: 1px solid var(--twenty)
+  padding-block: 1em
+  p
+    margin-block: .5em
+
+time
+  @extend .default

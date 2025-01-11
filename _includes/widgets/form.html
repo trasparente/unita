@@ -1,0 +1,119 @@
+{% assign form = include.form | default: page.form %}
+{% if form.file == nil %}> `form` widget: Missing `file` property.
+{:role="alert"}{% else %}
+{% if form.timestamp %}
+{% assign ext = form.file | split: '.' | last %}
+{% assign extension = '.' | append: ext %}
+{% assign unix = site.time | date: "%s" %}
+{% assign file = form.file | replace: extension, '/' | append: unix | append: extension %}
+{% else %}{% assign file = form.file %}{% endif %}
+{% if form.user %}{% assign file = file | prepend: 'user/' %}{% endif %}
+<form class='prevent{% if form.class %} {{ form.class }}{% endif %}' data-file='{{ file }}'{% if form.timestamp %} data-timestamp='{{ form.timestamp }}'{% endif %}>
+<h3>{{ form.name | capitalize | default: file | default: 'Form' }}</h3>
+{% for field in form.fields %}
+  <div data-input='{{ field[1].type }}'{% if field[1].multiple %} data-multiple='true'{% endif %}>
+  {% if field[1].type != 'hidden' %}<label for='{{ field[0] }}'>{{ field[1].title | default: field[0] | replace: "_", " " | capitalize }}</label>{% endif %}
+  {% case field[1].type %}
+    {% when 'date' %}
+      <input type='date' id='{{ field[0] }}' name='{{ field[0] }}'
+        {% if field[1].default == 'today' %} value='{{ site.time | date: "%F" }}'{% endif %}{% if field[1].disabled %} disabled{% endif %}>
+    {% when 'datetime' %}
+      <input type='datetime-local' id='{{ field[0] }}' name='{{ field[0] }}'
+        value="{% if field[1].default contains 'today' %}{{ site.time | date: "%F" }}{% endif %}{% if field[1].default contains 'now' %}T{{ site.time | date: "%R" }}{% endif %}"{% if field[1].disabled %} disabled{% endif %}
+        step='{{ field[1].step | default: 60 }}'>
+    {% when 'select' %}
+      <select name='{{ field[0] }}' id='{{ field[0] }}'{% if field[1].multiple %} multiple{% endif %}>
+      {% for option in field[1].options %}
+        <option value='{{ option }}'{% if field[1].default == option %} selected{% endif %}>{{ option }}</option>
+      {% endfor %}
+      </select>
+    {% when 'radio' %}
+      <div class='radio-container'>
+      {% for option in field[1].options %}
+        <input type='radio' name='{{ field[0] }}' id='{{ option }}' value='{{ option }}'{% if field[1].default == option %} checked{% endif %}/><label for='{{ option }}'>{{ option }}</label>
+      {% endfor %}
+      </div>
+    {% when 'boolean' %}
+      <select name='{{ field[0] }}' id='{{ field[0] }}' type='number'>
+        <option value='0'>False</option>
+        <option value='1'{% if field[1].default == 1 %} selected{% endif %}>True</option>
+      </select>
+    {% when 'color' %}
+      <input type='color' id='{{ field[0] }}' name='{{ field[0] }}'
+        {% if field[1].default %} value='{{ field[1].default }}'{% endif %}>
+    {% when 'number' %}
+      <input type='number' id='{{ field[0] }}' name='{{ field[0] }}'
+        step='{{ field[1].step | default: "any" }}'
+        min='{{ field[1].min }}'
+        max='{{ field[1].max }}'{% if field[1].disabled %} disabled{% endif %}
+        {% if field[1].default %} value='{{ field[1].default }}'{% endif %}>
+    {% when 'textarea' %}
+      <textarea spellcheck='false' name='{{ field[0] }}' id='{{ field[0] }}'{% if field[1].placeholder %} placeholder='{{ field[1].placeholder }}'{% endif %}></textarea>
+    {% when 'text' or nil %}
+      <input type='text' id='{{ field[0] }}' name='{{ field[0] }}'
+        {% if field[1].default %} value='{{ field[1].default }}'{% endif %}{% if field[1].placeholder %} placeholder='{{ field[1].placeholder }}'{% endif %}>
+    {% when 'ref' %}
+      {% assign csv = field[1].csv %}
+      {% assign options = site.data[csv] %}
+      {% assign property = field[1].property | default: 'name' %}
+      <select name='{{ field[0] }}' id='{{ field[0] }}'>
+      {% for option in options %}{% assign name = option[property] %}
+        <option value='{{ name }}'>{{ name }}</option>
+      {% endfor %}
+      </select>
+    {% when 'random' %}
+      {%- assign csv = field[1].csv -%}
+      {%- assign options = site.data[csv] -%}
+      {%- assign property = field[1].property | default: 'name' -%}
+      <input
+        type='text' id='{{ field[0] }}' name='{{ field[0] }}'
+        value='{{ options | sample | map: property }}'
+        {% if field[1].disabled %}disabled{% endif %}
+        title='picked {{ property }} from {{ csv }}'>
+    {% when 'roll' %}
+      {%- assign roll = field[1].roll -%}
+      {%- assign mod = field[1].mod -%}
+      {%- assign csv = field[1].csv -%}
+      {%- assign type = 'number' -%}
+      {% capture dice %}{% include widgets/rolls.html roll=roll mod=mod %}{% endcapture %}
+      {% if csv != nil %}
+        {% capture string %}{% include widgets/reference.html value=dice csv=csv %}{% endcapture %}
+        {% assign dice = string %}
+        {% assign type = 'text' %}
+      {% endif %}
+      <input
+        type='{{ type }}' id='{{ field[0] }}' name='{{ field[0] }}'
+        value='{{ dice }}'
+        title='Rolled {{ roll }}{% if mod != 0 %}{% if mod > 0 %}+{% endif %}{{ mod }}{% endif %}: {{ rolls_rolls | inspect }}'
+        {% if field[1].hidden %}hidden{% endif %}
+        {% if field[1].disabled %}disabled{% endif %}>
+    {% else %}
+      {{ field[1] | inspect }}
+  {% endcase %}
+  {% if field[1].description %}{{ field[1].description | newline_to_br | markdownify }}{% endif %}
+  </div>
+{% endfor %}
+  <div data-input="buttons">
+    <label for='send-button'>Send</label>
+    <input type='submit' id='send-button' value='Submit'>
+    <input type='reset' value='Reset'>
+  </div>
+  <div data-input="message"></div>
+</form>
+{% endif %}
+{% capture api %}
+Render a functional form from a `yml` object in the page front matter
+
+```liquid
+{% raw %}{% include widgets/form.html form=page.form %}{% endraw %}
+```
+- `include.form`: yml form, front-matter or data file
+
+**Form properties**
+
+- file: fields.json
+- timestamp: true
+- user: true
+- fields:
+  - type: text, textarea, number, boolean, color, date, datetime, select, select multiple, radio, ref, random, roll (csv)
+{% endcapture %}

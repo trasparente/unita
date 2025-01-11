@@ -1,0 +1,13 @@
+<footer>
+{%- assign repo = site.github.public_repositories | where: "full_name", site.github.repository_nwo | first -%}
+  <div>
+    <div aria-label='Sitetime'>{% include widgets/time.html %}</div>
+    <div aria-label='Created'>{% include widgets/time.html datetime = created_at %}</time></div>
+    <div aria-label='Pushed'>{% include widgets/time.html datetime = pushed_at %}</time></div>
+    {% if site.remote_theme %}<div aria-label='Remote-theme'>
+    <a href='https://github.com/{{ site.remote_theme | split: "@" | first }}'>{{ site.remote_theme | split: "@" | first }}</a>
+    </div>{% endif %}
+    {% include widgets/github_link.html text = site.github.repository_nwo %}
+    {% include widgets/github_link.html path=page.path text="page code" %}
+  </div>
+</footer>

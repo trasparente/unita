@@ -1,0 +1,44 @@
+<nav>
+  <div>
+    <!-- PAGES not in 'assets/' -->
+    {%- assign html_pages = site.html_pages -%}
+    {% for link in html_pages %}{% unless link.path contains 'assets/' %}<a class='page-link' href="{{ link.url | absolute_url }}"{% if page.url == link.url %} aria-current="page"{% endif %}{% if link.order %} style='order: {{ link.order }}'{% endif %}>{{ link.title | default: link.name }}</a>{% endunless %}{% endfor %}
+    <!-- COLLECTIONS -->
+    {% assign sorted_collections = site.collections %}
+    {% for collection in sorted_collections %}{% if collection.docs.size > 0 %}
+    {%- assign first_doc_sorted = collection.docs | where_exp: 'item', 'item.order != nil' | sort: 'order' | first -%}
+    {%- assign first_doc = first_doc_sorted | default: collection.docs.first -%}
+    <a class='collection-link' href='{{ first_doc.url | absolute_url }}'{% if page.collection == collection.label %} aria-current='true'{% endif %}{% if collection.order %} style='order: {{ collection.order }}'{% endif %}>{{ collection.title | default: collection.label }}</a>
+    {% endif %}{% endfor %}
+  </div>
+  <div>
+    {% include widgets/login.html %}
+  </div>
+</nav>
+{% if page.collection %}{% assign col = site.collections | where: "label", page.collection | first %}
+<nav>
+  <div>
+  {% for d in col.docs %}<a class='document-link' href="{{ d.url | absolute_url }}"{% if page.url == d.url %} aria-current="page"{% endif %}{% if d.order %} style="order: {{ d.order }}"{% endif %}>{{ d.title }}</a>
+  {% endfor %}
+  </div>
+</nav>
+{% endif %}
+{%- capture api -%}
+Render main navigation links and secodary navigation for collections documents.
+
+```html
+<nav>
+  <div><ul><li>...Pages...</li></ul></div>
+  <div><ul><li>...Collections...</li></ul></div>
+</nav>
+<nav>
+  <div><ul><li>...Login...</li></ul></div>
+</nav>
+```
+
+- `site.html_pages`: Pages not in `assets/` with optional `order`
+- `site.collections`: Collections not empty, link to document with smaller `order`
+  - Collections documents with optionsl `order`
+- Login widget
+- Soma player if `site.soma`
+{%- endcapture -%}

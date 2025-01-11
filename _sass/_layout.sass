@@ -1,0 +1,61 @@
+header, nav, footer, [role="marquee"]
+  @extend .flex
+main, header, footer, nav
+  @extend .padding-layout
+header
+  align-items: center
+  @include mobile
+    justify-content: flex-start
+    &:has(details[open])
+      align-items: flex-start
+nav > div
+  @extend .flex
+nav:nth-of-type(2)
+  padding-top: 0
+aside
+  float: right
+  @include mobile
+    float: none
+footer > div
+  @extend .flex
+  flex-direction: column
+  gap: 0
+blockquote, .blockquote, .api, form
+  @extend .border, .bg
+  margin: 1em 0.5em
+  padding-inline: .7em
+.api
+  display: inline-block
+ul, ol
+  padding-inline-start: 1.5em
+table
+  margin-block: 1em
+  thead
+    background: var(--ten)
+  td, th
+    padding: .2em .5em
+    border-bottom: 1px solid var(--twenty)
+#bottom-left:not(:empty),
+#bottom-right:not(:empty)
+  @extend .flex
+  background: var(--dim-bg)
+  flex-direction: column
+  position: fixed
+  bottom: 0
+  left: 0
+  padding: 1em
+  [class*='spy-']
+    @extend .blockquote, .pointer
+    border-color: var(--grey)
+    margin: 0
+    padding: 0.5em
+    &.spy-success
+      border-color: green
+    &.spy-error
+      border-color: var(--red)
+    &:hover
+      border-color: var(--twenty)
+      color: var(--grey)
+#bottom-right:not(:empty)
+  right: 0
+  left: auto

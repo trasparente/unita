@@ -1,0 +1,124 @@
+# File path to edit inside '_data'
+# Format: 'folder/file.ext'
+# Required
+file: fields.json
+
+# Optional timestamp to save as 'folder/file/{timestamp}.ext'
+timestamp: true
+
+# Optional save in 'user' subfolder 'user/folder/file.ext'
+user: true
+
+# Form field as yaml fields
+# Columns if file is 'csv'
+# Properties if file is 'json' or 'yaml'
+fields:
+
+  # Text, explicit
+  text:
+    type: text
+    # Optional
+    title: Label string
+    default: default string
+    # Description supports markdown
+    description: "Implicit form `{text: true}`{:.language-json}"
+
+  # Textarea
+  textarea:
+    type: textarea
+    # Optional
+    placeholder: Textarea
+    description: Support placeholder property
+
+  # Number
+  number:
+    type: number
+    # Optional
+    default: 0
+
+  # Boolean
+  boolean:
+    type: boolean
+    # Optional
+    default: 1
+    description: |
+      Numeric boolean 0 or 1
+      Support deafult property
+
+  # Color
+  color:
+    type: color
+    # Optional
+    default: "#000"
+
+  # Date picker
+  date:
+    type: date
+    default: today
+    description: Default value and accept `today`
+
+  # Datetime picker
+  datetime:
+    type: datetime
+    step: 60
+    default: today now
+    description: |
+      Default property string accept `today` and `now`
+      `step` optional is in seconds
+
+  # Select from list
+  select:
+    type: select
+    options: [Saved,As,String]
+    default: Select type has `option` array
+
+  # Select multiple
+  select_multiple:
+    type: select
+    options: [Multiple,Choice]
+    multiple: true
+
+  # Radio
+  radio:
+    type: radio
+    options: [Single,Choice]
+    description: Radio type has `option` array
+
+  # Reference:
+  # select from external csv
+  reference:
+    type: ref
+    # csv file name inside '_data'
+    csv: time
+    # Column name to gather
+    property: date
+
+  # Pick a property from a random line in a csv
+  random:
+    type: random
+    # csv file name inside '_data'
+    csv: stones
+    # Column name to pick
+    property: dead
+    description: Get a csv file and a property to pick from
+    # Optional disabled
+    disabled: true
+
+  # Roll dices at site deploy
+  roll:
+    type: roll
+    roll: 3d6
+    description: Roll property is (rolls)d(sides)
+    # Optional modifier
+    mod: 0
+    # Optional disabled
+    disabled: true
+
+  # Roll and index a value/name csv
+  roll_csv:
+    type: roll
+    roll: 3d6
+    property: name
+    # Optional csv file
+    csv: agency
+    description: Csv file and property

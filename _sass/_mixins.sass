@@ -1,0 +1,11 @@
+// MOBILE SCREEN
+// Mobile screens are 40em (620px)
+// .usage
+//   @include mobile
+//     content
+@mixin mobile
+  @media screen and (width <= $mobile_width)
+    @content
+@mixin big-screen
+  @media screen and (width > $mobile_width)
+    @content

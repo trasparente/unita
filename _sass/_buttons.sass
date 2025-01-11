@@ -1,0 +1,36 @@
+.button, button,
+input:is([type="submit"], [type="reset"], [type="button"], [type="color"]),
+input:is([type="text"], [type="radio"], [type="date"], [type="datetime-local"],[type="number"]),
+select, textarea,
+nav a
+  color-scheme: dark
+  color: var(--fg)
+  font-size: 1em
+  line-height: 1em
+  cursor: pointer
+  display: inline-block
+  text-transform: uppercase
+  background-color: var(--ten)
+  font-weight: 500
+  border: 2px solid transparent
+  border-radius: 3px
+  padding: 0.4em 0.7em
+  box-sizing: content-box
+  text-decoration: none
+  &:checked + label,
+  &[aria-current="page"],
+  &[type="submit"]
+    color: var(--link)
+  &[aria-current="true"],
+  &[type="reset"]
+    color: var(--grey)
+  &:hover
+    text-decoration: none
+    border-color: var(--grey)
+  &:active
+    color: currentcolor
+    background-color: transparent
+
+.button.button-small,
+nav:nth-of-type(2) a
+  font-size: smaller

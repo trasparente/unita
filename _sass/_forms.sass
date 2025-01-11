@@ -1,0 +1,48 @@
+// Appearence
+input, select, output, textarea
+  font-family: inherit
+  font-size: inherit
+  line-height: inherit
+  // Description paragraph of the field
+  // The <p> tag is added by liquid markdowinfy
+  // Appear as a <small> tag
+  &:focus
+    outline: none
+    background: var(--bg)
+    border-color: var(--grey)
+  // Field description is a paragraph
+  & + p
+    @extend .description
+  &[readonly], &[disabled]
+    cursor: not-allowed
+    color: var(--grey)
+    &:hover
+      border-color: transparent
+    &:active
+      background-color: var(--ten)
+      color: var(--grey)
+input, output, textarea
+  appearance: none
+  -webkit-appearance: none
+
+input:is([type="text"], [type="email"], [type="date"], [type="datetime-local"], [type="number"], [type="password"], [type="color"]),
+select, textarea
+  min-width: 13em
+
+form
+  display: inline-block
+
+[data-input]
+  padding-block: 0.3em
+
+[data-input] > label
+  display: block
+  margin-bottom: .2em
+
+// RADIO TYPE
+[data-input='radio'] input
+  display: none
+  & + label
+    @extend .button
+.radio-container + p
+  @extend .description

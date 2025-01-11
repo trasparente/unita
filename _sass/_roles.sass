@@ -1,0 +1,23 @@
+[role='marquee']
+  @extend .flex
+  @include mobile
+    flex-direction: column
+    gap: 0
+  [aria-label]::before
+    @extend .uppercase
+
+[role="alert"]
+  @extend .blockquote
+  border-color: var(--red)
+
+[aria-label]
+  // @extend .flex
+  // flex-direction: column
+  // gap: 0
+  // text-align: center
+  // min-width: 5.5em
+  // margin-block: .5em
+  &::before
+    content: attr(aria-label)
+    margin-right: 0.3em
+    // @extend .label

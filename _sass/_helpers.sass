@@ -1,0 +1,31 @@
+.hidden, [hidden], template
+  display: none
+.fg
+  color: var(--fg)
+.bg
+  background-color: var(--bg)
+.mpz
+  margin: 0
+  padding: 0
+.padding-layout
+  padding: var(--padding-layout)
+.flex
+  display: flex
+  justify-content: space-between
+  flex-wrap: wrap
+  flex-direction: row
+  gap: .4em
+.uppercase
+  text-transform: uppercase
+.pointer
+  cursor: pointer
+.default
+  cursor: default
+.border
+  border: 2px solid var(--twenty)
+  border-radius: 3px
+.blink
+  animation: blinker $blink step-start infinite
+@keyframes blinker
+  50%
+    opacity: 0

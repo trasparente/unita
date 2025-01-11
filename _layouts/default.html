@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+{%- include page/init.html -%}
+<html lang='{{ language }}' dir='{{ direction }}'>
+{%- include page/head.html -%}
+<body
+  onresize='resize()'
+  onload='bootstrap()'
+  ononline='online()'
+  onoffline='offline()'
+  onfocus='focus()'
+  onblur='blur()'
+  onhashchange='onhashchange()'
+  data-github-fork='{{ repo | map: "fork" | first }}'
+  data-github-id='{{ repo | map: "id" | first }}'
+  data-github-environment='{{ site.github.environment }}'
+  data-github-remote-theme='{{ site.remote_theme }}'
+  data-color-scheme='{{ page.color_scheme | default: site.color_scheme | default: "dark" }}'
+  class='{{ page.class }}'>
+{%- include page/header.html -%}
+{%- include page/navigation.html -%}
+<main>{%- include page/aside.html -%}{{ content }}</main>
+{%- include page/footer.html -%}
+<div id='bottom-left'></div><div id='bottom-right'><a class='scrolled' href="#top">TOP</a></div>
+</body>
+</html>
