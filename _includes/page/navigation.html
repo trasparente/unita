@@ -1,4 +1,4 @@
-<nav>
+<div class='nav-container'><nav>
   <div>
     <!-- PAGES not in 'assets/' -->
     {%- assign html_pages = site.html_pages -%}
@@ -22,7 +22,7 @@
   {% endfor %}
   </div>
 </nav>
-{% endif %}
+{% endif %}</div>
 {%- capture api -%}
 Render main navigation links and secodary navigation for collections documents.
 

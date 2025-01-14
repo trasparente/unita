@@ -1,0 +1,17 @@
+file: dow/world.json
+timestamp: true
+fields:
+  name:
+    type: random
+    csv: stones
+    property: dead
+    required: true
+  age:
+    type: ref
+    csv: dow/age
+  round:
+    type: number
+    default: 1
+  year:
+    type: number
+    default: 0

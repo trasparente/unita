@@ -14,12 +14,14 @@
   <div data-input='{{ field[1].type }}'{% if field[1].multiple %} data-multiple='true'{% endif %}>
   {% if field[1].type != 'hidden' %}<label for='{{ field[0] }}'>{{ field[1].title | default: field[0] | replace: "_", " " | capitalize }}</label>{% endif %}
   {% case field[1].type %}
+    {% when 'hidden' %}
+      <input type='hidden' id='{{ field[0] }}' name='{{ field[0] }}' value='{{ field[1].default }}'>
     {% when 'date' %}
       <input type='date' id='{{ field[0] }}' name='{{ field[0] }}'
         {% if field[1].default == 'today' %} value='{{ site.time | date: "%F" }}'{% endif %}{% if field[1].disabled %} disabled{% endif %}>
     {% when 'datetime' %}
       <input type='datetime-local' id='{{ field[0] }}' name='{{ field[0] }}'
-        value="{% if field[1].default contains 'today' %}{{ site.time | date: "%F" }}{% endif %}{% if field[1].default contains 'now' %}T{{ site.time | date: "%R" }}{% endif %}"{% if field[1].disabled %} disabled{% endif %}
+        value="{% if field[1].default contains 'today' %}{{ site.time | date: "%F" }}{% endif %}{% if field[1].default contains 'now' %}T{{ site.time | date: "%R" }}{% endif %}{% if field[1].default contains 'midnight' %}T00:00{% endif %}"{% if field[1].disabled %} disabled{% endif %}
         step='{{ field[1].step | default: 60 }}'>
     {% when 'select' %}
       <select name='{{ field[0] }}' id='{{ field[0] }}'{% if field[1].multiple %} multiple{% endif %}>
@@ -40,21 +42,26 @@
       </select>
     {% when 'color' %}
       <input type='color' id='{{ field[0] }}' name='{{ field[0] }}'
-        {% if field[1].default %} value='{{ field[1].default }}'{% endif %}>
+        {% if field[1].default %} value='{{ field[1].default }}'{% endif %}{% if field[1].required %} required{% endif %}>
     {% when 'number' %}
       <input type='number' id='{{ field[0] }}' name='{{ field[0] }}'
         step='{{ field[1].step | default: "any" }}'
         min='{{ field[1].min }}'
         max='{{ field[1].max }}'{% if field[1].disabled %} disabled{% endif %}
-        {% if field[1].default %} value='{{ field[1].default }}'{% endif %}>
+        {% if field[1].default %} value='{{ field[1].default }}'{% endif %}{% if field[1].required %} required{% endif %}>
     {% when 'textarea' %}
-      <textarea spellcheck='false' name='{{ field[0] }}' id='{{ field[0] }}'{% if field[1].placeholder %} placeholder='{{ field[1].placeholder }}'{% endif %}></textarea>
+      <textarea spellcheck='false' name='{{ field[0] }}' id='{{ field[0] }}'{% if field[1].placeholder %} placeholder='{{ field[1].placeholder }}'{% endif %}{% if field[1].required %} required{% endif %}></textarea>
+    {% when 'email' %}
+      <input type='email' id='{{ field[0] }}' name='{{ field[0] }}'
+        {% if field[1].placeholder %} placeholder='{{ field[1].placeholder }}'{% endif %}{% if field[1].required %} required{% endif %}{% if field[1].autocomplete %} autocomplete="{{ field[1].autocomplete }}"{% endif %}>
     {% when 'text' or nil %}
       <input type='text' id='{{ field[0] }}' name='{{ field[0] }}'
-        {% if field[1].default %} value='{{ field[1].default }}'{% endif %}{% if field[1].placeholder %} placeholder='{{ field[1].placeholder }}'{% endif %}>
+        {% if field[1].default %} value='{{ field[1].default }}'{% endif %}{% if field[1].placeholder %} placeholder='{{ field[1].placeholder }}'{% endif %}{% if field[1].required %} required{% endif %}{% if field[1].autocomplete %} autocomplete="{{ field[1].autocomplete }}"{% endif %}>
     {% when 'ref' %}
       {% assign csv = field[1].csv %}
-      {% assign options = site.data[csv] %}
+      {% assign csv_array = csv | split: "/" %}
+      {% assign options = site.data %}
+      {% for level in csv_array %}{% assign options = options[level] %}{% endfor %}
       {% assign property = field[1].property | default: 'name' %}
       <select name='{{ field[0] }}' id='{{ field[0] }}'>
       {% for option in options %}{% assign name = option[property] %}
@@ -95,10 +102,10 @@
 {% endfor %}
   <div data-input="buttons">
     <label for='send-button'>Send</label>
-    <input type='submit' id='send-button' value='Submit'>
-    <input type='reset' value='Reset'>
+    <input type='submit' name='submit' value='Submit'>
+    <input type='reset' name='reset' value='Reset'>
   </div>
-  <div data-input="message"></div>
+  <div data-input="message" role='status'></div>
 </form>
 {% endif %}
 {% capture api %}
@@ -114,6 +121,8 @@ Render a functional form from a `yml` object in the page front matter
 - file: fields.json
 - timestamp: true
 - user: true
+- class: space separated list
 - fields:
-  - type: text, textarea, number, boolean, color, date, datetime, select, select multiple, radio, ref, random, roll (csv)
+  - type: text, hidden, email, textarea, number, boolean, color, date, datetime, select, select multiple, radio, ref, random, roll (csv)
+  - options: required, disabled, placeholder
 {% endcapture %}

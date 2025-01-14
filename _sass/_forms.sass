@@ -28,16 +28,25 @@ input, output, textarea
 input:is([type="text"], [type="email"], [type="date"], [type="datetime-local"], [type="number"], [type="password"], [type="color"]),
 select, textarea
   min-width: 13em
+  // Overwrite uppercase in .button
+  text-transform: none !important
 
 form
-  display: inline-block
+  display: table
+html.ajax, html.behind
+  form
+    opacity: 50%
+    filter: saturate(0)
+    pointer-events: none
 
 [data-input]
-  padding-block: 0.3em
-
-[data-input] > label
-  display: block
-  margin-bottom: .2em
+  padding-block: 0.5em
+  > label
+    @extend .label-wide
+    &:has(~ input:focus)
+      color: var(--fg)
+  &[role='status']:empty
+    display: none
 
 // RADIO TYPE
 [data-input='radio'] input

@@ -1,0 +1,21 @@
+file: gfl/join.json
+user: true
+# class: fork
+fields:
+  team:
+    type: text
+    required: true
+    description: Team name
+  stadium:
+    type: text
+    required: true
+    description: Stadium name
+  race:
+    type: ref
+    csv: gfl/races
+  background:
+    type: color
+    default: "#ff8000"
+  ink:
+    type: color
+    default: "#ffffff"

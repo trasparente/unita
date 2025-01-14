@@ -10,15 +10,18 @@
   onfocus='focus()'
   onblur='blur()'
   onhashchange='onhashchange()'
-  data-github-fork='{{ repo | map: "fork" | first }}'
-  data-github-id='{{ repo | map: "id" | first }}'
+  data-github-fork='{{ fork }}'
+  data-github-id='{{ id }}'
+  data-collection='{{ collection }}'
+  data-title='{{ page.id | split: '/' | last }}'
+  data-extension='{{ page.path | split: '.' | last }}'
   data-github-environment='{{ site.github.environment }}'
   data-github-remote-theme='{{ site.remote_theme }}'
   data-color-scheme='{{ page.color_scheme | default: site.color_scheme | default: "dark" }}'
   class='{{ page.class }}'>
 {%- include page/header.html -%}
 {%- include page/navigation.html -%}
-<main>{%- include page/aside.html -%}{{ content }}</main>
+<main>{%- include page/aside.html -%}{{ content }}{%- if page.pagination -%}{% include page/pagination.html %}{%- endif -%}</main>
 {%- include page/footer.html -%}
 <div id='bottom-left'></div><div id='bottom-right'><a class='scrolled' href="#top">TOP</a></div>
 </body>

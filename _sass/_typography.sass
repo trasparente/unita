@@ -3,6 +3,8 @@ body
   font-size: var(--fs-body)
   font-family: var(--ff-body)
   line-height: 1.2
+  @include mobile
+    font-size: var(--fs-body-mobile)
 h1, h2, h3
   font-family: var(--ff-headings)
   margin-block: .5em
@@ -17,25 +19,46 @@ header
     width: .75em
     margin-right: .2em
 
+b, strong, th
+  font-weight: 600
+
 .label
   @extend .uppercase
   font-family: 'Eurostile'
   color: var(--grey)
+.label-wide, legend
+  display: block
+  margin-bottom: .2em
+  text-transform: uppercase
+  font-weight: bolder
+  color: var(--dim)
+  font-family: "Eurostile Extended"
 
 .description
+  @extend .dimmer
   color: var(--grey)
   margin-block: 0.2em
-  font-size: smaller
 
-footer, aside, header [aria-label]::before, .footnotes
-  font-size: smaller
-  color: var(--dim)
+footer, aside, header [aria-label]::before,
+[role="doc-endnotes"]
+  @extend .dimmer
 
-.footnotes
+[role="doc-endnotes"], [aria-label='Pagination']
+  margin-top: 2em
+  &:before
+    display: none
   border-top: 1px solid var(--twenty)
   padding-block: 1em
-  p
+  [role="doc-endnote"] p,
+  div a[rel]
+    &:before
+      color: var(--grey)
+      text-decoration: none
     margin-block: .5em
 
 time
   @extend .default
+  span
+    text-decoration-style: dashed !important
+    text-decoration: underline
+    text-decoration-color: var(--grey)

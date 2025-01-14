@@ -1,4 +1,4 @@
-header, nav, footer, [role="marquee"]
+header, nav, footer, [role="marquee"], [aria-label="Pagination"]
   @extend .flex
 main, header, footer, nav
   @extend .padding-layout
@@ -8,10 +8,16 @@ header
     justify-content: flex-start
     &:has(details[open])
       align-items: flex-start
-nav > div
-  @extend .flex
-nav:nth-of-type(2)
+.nav-container
+  z-index: 100
+  position: sticky
+  top: 0
+  background: var(--bg)
+nav
   padding-top: 0
+  > div
+    @extend .flex
+// nav:nth-of-type(2)
 aside
   float: right
   @include mobile
@@ -20,12 +26,14 @@ footer > div
   @extend .flex
   flex-direction: column
   gap: 0
-blockquote, .blockquote, .api, form
+blockquote, .blockquote, .api, form, fieldset
   @extend .border, .bg
   margin: 1em 0.5em
   padding-inline: .7em
-.api
+.api, fieldset
   display: inline-block
+form + fieldset
+  margin-top: 0
 ul, ol
   padding-inline-start: 1.5em
 table
@@ -34,10 +42,12 @@ table
     background: var(--ten)
   td, th
     padding: .2em .5em
+    vertical-align: baseline
     border-bottom: 1px solid var(--twenty)
 #bottom-left:not(:empty),
 #bottom-right:not(:empty)
   @extend .flex
+  z-index: 100
   background: var(--dim-bg)
   flex-direction: column
   position: fixed
@@ -53,6 +63,8 @@ table
       border-color: green
     &.spy-error
       border-color: var(--red)
+    &.spy-warning
+      border-color: darkgoldenrod
     &:hover
       border-color: var(--twenty)
       color: var(--grey)

@@ -1,7 +1,6 @@
 <footer>
 {%- assign repo = site.github.public_repositories | where: "full_name", site.github.repository_nwo | first -%}
   <div>
-    <div aria-label='Sitetime'>{% include widgets/time.html %}</div>
     <div aria-label='Created'>{% include widgets/time.html datetime = created_at %}</time></div>
     <div aria-label='Pushed'>{% include widgets/time.html datetime = pushed_at %}</time></div>
     {% if site.remote_theme %}<div aria-label='Remote-theme'>

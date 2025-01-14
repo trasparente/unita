@@ -1,0 +1,15 @@
+file: dow/join.json
+user: true
+# class: fork
+fields:
+  god_name:
+    type: random
+    csv: stones
+    property: dead
+    required: true
+  background:
+    type: color
+    default: "#ff8000"
+  ink:
+    type: color
+    default: "#ffffff"

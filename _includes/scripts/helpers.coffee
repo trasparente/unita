@@ -187,6 +187,12 @@ get_csv_file = (form, file_url, file, header, row) -> $.get
     save_file form, file_url, new_file, {sha: data.sha}
     return # End get_csv_file done
 
+get_json_file = (form, file_url, file) -> $.get
+  url: file_url
+  # arguments: Object, 'error', 'Not Found'
+  error: (request, textStatus , errorThrown) -> if request.status is 404 then save_file form, file_url, file
+  success: (data) -> save_file form, file_url, file, {sha: data.sha}
+
 save_file = (form, file_url, file, data) -> $.ajax
   url: file_url
   method: 'PUT'
@@ -195,7 +201,7 @@ save_file = (form, file_url, file, data) -> $.ajax
     content: Base64.encode file
   }, data
   success: (data) ->
-    spy "Committed #{ data.content.path } as #{ data.commit.sha.slice 0, 7 }", 'success'
+    spy "Committed #{ data.content.path } as #{ data.commit.sha.slice 0, 7 }", 'success', form
     form.trigger 'reset'
     html.removeClass('updated').addClass 'behind'
     if environment isnt 'development' then do get_builds

@@ -1,4 +1,4 @@
-.hidden, [hidden], template
+.hidden, [hidden], template, [data-input='hidden']
   display: none
 .fg
   color: var(--fg)
@@ -15,6 +15,15 @@
   flex-wrap: wrap
   flex-direction: row
   gap: .4em
+.smaller
+  font-size: smaller
+.dimmer
+  @extend .smaller
+  color: var(--dim)
+.oblique
+  font-style: oblique
+.center
+  text-align: center
 .uppercase
   text-transform: uppercase
 .pointer

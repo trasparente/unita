@@ -3,7 +3,7 @@
 $.ajaxPrefilter (options, ajaxOptions, request) ->
   options.cache = false
   # Notification on FAIL
-  request.fail (request, status, error) -> spy "#{request.status} #{request.responseJSON?.message || error}", 'error'
+  request.fail (request, status, error) -> spy "#{request.status} #{request.responseJSON?.message || error}", 'warning'
   # Check GitHub requests
   if options.url.startsWith '{{ site.github.api_url }}'
     # Proper Accept header

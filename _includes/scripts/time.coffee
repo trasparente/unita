@@ -56,15 +56,16 @@ relative_time = (e) ->
 # Bootstrap
 $('time[datetime]').each -> relative_time @
 
-@spy = (msg, kind = 'info') ->
+@spy = (msg, kind = 'info', form = 0) ->
   timer = $('<time/>', {
     text: "#{msg} "
     datetime: new Date().toString()
     class: "spy-#{kind}"
   })
-  $('#bottom-left').prepend timer.append $('<span/>')
+  base = if !form then $('#bottom-left') else form.find '[data-input="message"]'
+  base.prepend timer.append $('<span/>')
   setTimeout relative_time, 1000, timer
-  dom.on 'click', timer, (e) ->
+  timer.on 'click', (e) ->
     e.stopPropagation()
     target = $ e.target
     if target.prop('tagName') is 'TIME' then target.remove() else target.parent().remove()
