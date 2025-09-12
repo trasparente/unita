@@ -1,0 +1,24 @@
+table
+  margin-block: 1em
+  tr
+    td, th
+      @extend .bg, .fg
+      padding: .2em .5em
+      vertical-align: baseline
+      border-bottom: 1px solid var(--bg-dim)
+    &[aria-selected='true'] td
+      @extend .light
+    &.only-child td
+      border: none
+  tr th
+    background: var(--bg-subtle)
+    &:first-child
+      border-top-left-radius: var(--border-radius)
+    &:last-child
+      border-top-right-radius: var(--border-radius)
+.tip
+  @extend .bg, .border, .flex, .pointer
+  z-index: 100
+  position: absolute
+  flex-direction: column
+  gap: 0

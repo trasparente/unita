@@ -1,0 +1,8 @@
+<progress max='{{ include.max | default: 100 }}' value='{{ include.value | default: 50 }}'{% if include.class %} class='{{ include.class }}'{% endif %}></progress>
+{%- capture api -%}
+Render a progress bar.
+
+- `max`: Max value, default to 100
+- `value`: Value to be filled, default to 50
+- `class`: Space separated classnames `info/success/warning/error`{:.language-make}
+{%- endcapture -%}

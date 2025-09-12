@@ -4,8 +4,25 @@
 //   @include mobile
 //     content
 @mixin mobile
-  @media screen and (width <= $mobile_width)
+  html.mobile
     @content
 @mixin big-screen
-  @media screen and (width > $mobile_width)
+  html.big-screen
     @content
+@mixin fullscreen
+  html.fullscreen
+    @content
+
+// Striped Background
+// usage:
+//   @include background-stripes($deg, $color1, $color2, $line_px)
+@mixin background-stripes($deg, $color1, $color2, $line_px)
+  background: repeating-linear-gradient(#{$deg}deg, #{$color1}, #{$color1} #{$line_px}, #{$color2} #{$line_px}, #{$color2} calc(#{$line_px} * 2))
+  // background-size: calc((100% - #{$lines}*#{$width})/(#{$lines} + 1) + #{$width}) 100%
+
+// BACKGROUND LINES
+// Vertical
+// Arguments: line width, number of line, and both colors
+@mixin background-lines-v($width, $lines, $background-color, $line-color)
+  background: linear-gradient(90deg, #{$background-color} calc(100% - #{$width}), #{$line-color} 0)
+  background-size: calc((100% - #{$lines}*#{$width})/(#{$lines} + 1) + #{$width}) 100%

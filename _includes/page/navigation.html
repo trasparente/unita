@@ -1,28 +1,47 @@
-<div class='nav-container'><nav>
-  <div>
+<div class='nav-container'>
+<nav class='main-nav'>
+  <div class='link-container'>
     <!-- PAGES not in 'assets/' -->
     {%- assign html_pages = site.html_pages -%}
-    {% for link in html_pages %}{% unless link.path contains 'assets/' %}<a class='page-link' href="{{ link.url | absolute_url }}"{% if page.url == link.url %} aria-current="page"{% endif %}{% if link.order %} style='order: {{ link.order }}'{% endif %}>{{ link.title | default: link.name }}</a>{% endunless %}{% endfor %}
+    {% for link in html_pages %}{% unless link.path contains 'assets/' %}<a class='page-link' href="{{ link.url | absolute_url }}"{% if page.url == link.url %} aria-current="page"{% endif %}{% if link.order %} style='order: {{ link.order }}'{% endif %} title='{{ link.description }}'>{{ link.title | default: link.name }}</a>{% endunless %}{% endfor %}
     <!-- COLLECTIONS -->
     {% assign sorted_collections = site.collections %}
     {% for collection in sorted_collections %}{% if collection.docs.size > 0 %}
     {%- assign first_doc_sorted = collection.docs | where_exp: 'item', 'item.order != nil' | sort: 'order' | first -%}
     {%- assign first_doc = first_doc_sorted | default: collection.docs.first -%}
-    <a class='collection-link' href='{{ first_doc.url | absolute_url }}'{% if page.collection == collection.label %} aria-current='true'{% endif %}{% if collection.order %} style='order: {{ collection.order }}'{% endif %}>{{ collection.title | default: collection.label }}</a>
+    <a class='collection-link' data-label='{{ collection.label }}' href='{{ first_doc.url | absolute_url }}' title='{{ collection.description }}'{% if page.collection == collection.label %} aria-current='true'{% endif %}{% if collection.order %} style='order: {{ collection.order }}'{% endif %}>{{ collection.title | default: collection.label }}</a>
     {% endif %}{% endfor %}
   </div>
+  <!-- Fullscreen Sub Navigation -->
+  {% if page.collection %}{% assign col = site.collections | where: "label", page.collection | first %}
+  <nav class='sub-nav fullscreen'>
+    {% for col in sorted_collections %}
+    <div data-collection='{{ col.label }}'><div class='link-container'>
+    {% for d in col.docs %}<a class='document-link' href="{{ d.url | absolute_url }}"{% if page.url == d.url %} aria-current="page"{% endif %}{% if d.order %} style="order: {{ d.order }}"{% endif %} title='{{ d.description }}'>{{ d.title }}</a>
+    {% endfor %}
+    </div></div>
+    {% endfor %}
+  </nav>
+  {% endif %}
+  <!-- Right Navigation -->
   <div>
-    {% include widgets/login.html %}
+    {% include widgets/links/settings.html %}
+    {% include widgets/links/login.html %}
+    <!-- Soma -->
   </div>
 </nav>
-{% if page.collection %}{% assign col = site.collections | where: "label", page.collection | first %}
-<nav>
-  <div>
-  {% for d in col.docs %}<a class='document-link' href="{{ d.url | absolute_url }}"{% if page.url == d.url %} aria-current="page"{% endif %}{% if d.order %} style="order: {{ d.order }}"{% endif %}>{{ d.title }}</a>
+<!-- Sub Navigation not in fullscreen -->
+<nav class='sub-nav not-fullscreen'>
+  {% for col in sorted_collections %}
+  <div data-collection='{{ col.label }}'><div class='link-container'>
+  {% for d in col.docs %}<a class='document-link' href="{{ d.url | absolute_url }}"{% if page.url == d.url %} aria-current="page"{% endif %}{% if d.order %} style="order: {{ d.order }}"{% endif %} title='{{ d.description }}'>{{ d.title }}</a>
   {% endfor %}
-  </div>
+  </div></div>
+  {% endfor %}
+  {% comment %} invisible subnav {% endcomment %}
+  <div class='invisible'><div class='link-container'><a class='document-link' href="">Spacer</a></div></div>
 </nav>
-{% endif %}</div>
+</div>
 {%- capture api -%}
 Render main navigation links and secodary navigation for collections documents.
 

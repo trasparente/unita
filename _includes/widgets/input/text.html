@@ -1,0 +1,1 @@
+{% assign opt = include.options %}<input type='text' id='{{ include.id }}' name='{{ include.id }}'{% assign attributes = 'value,placeholder,autocomplete,required,slug,disabled' %}{% include widgets/input/attributes.html attributes = attributes opt = opt %}>

@@ -1,0 +1,23 @@
+{% assign n = include.number | split: '' %}
+<svg xmlns="http://www.w3.org/2000/svg" fill="var(--bg-subtle)" stroke='var(--fg)' stroke-linecap="round" viewBox="-11 -16 22 32" style='width:3em;'>
+
+<!-- DEFS -->
+<defs>
+  <!-- UNITS -->
+  <g id="n-1-1"><line x1="0" y1="-15" x2="10" y2="-15" /></g>
+  <g id="n-1-2"><line x1="0" y1="-5" x2="10" y2="-5" /></g>
+  <g id="n-1-3"><line x1="0" y1="-15" x2="10" y2="-5" /></g>
+  <g id="n-1-4"><line x1="0" y1="-5" x2="10" y2="-15" /></g>
+  <g id="n-2-6"><line x1="10" y1="-15" x2="10" y2="-5" /></g>
+</defs>
+
+<!-- BG -->
+<polygon points="-11,-16 -11,16 11,16 11,-16" stroke='var(--bg-subtle)'/>
+
+<!-- ZERO -->
+<line x1="0" y1="-15" x2="0" y2="15" />
+
+<!-- DIGITS -->
+{% for d in n %}<use href="#n-{{ forloop.index }}-{{ d }}" />{% endfor %}
+
+</svg>

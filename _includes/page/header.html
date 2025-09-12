@@ -1,5 +1,7 @@
 <header>
 <h1>{% assign logo_path = site.static_files | where_exp: "item", "item.path contains 'logo.png'" | map: 'path' | first %}{% if logo_path %}<img src='{{ logo_path | absolute_url }}' class='logo'>{% endif %}{{ site.title | default: site.github.project_title }}</h1>
-<div class='big-screen' role='marquee'>{%- include page/status.html -%}</div>
+<div id='status'>
+  <div class='not-mobile' role='marquee'>{%- include page/status.html -%}</div>
 <details class='mobile'><summary>Status</summary><div role='marquee'>{%- include page/status.html -%}</div></details>
+</div>
 </header>

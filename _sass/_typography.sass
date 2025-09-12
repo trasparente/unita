@@ -1,15 +1,38 @@
 body
-  @extend .fg, .bg, .mpz
   font-size: var(--fs-body)
   font-family: var(--ff-body)
   line-height: 1.2
   @include mobile
     font-size: var(--fs-body-mobile)
-h1, h2, h3
-  font-family: var(--ff-headings)
-  margin-block: .5em
-main > h1
-  @extend .uppercase
+main >
+  h1
+    @extend .uppercase
+  h1, h2, h3
+    // font-family: var(--ff-headings)
+    margin-top: 1.5em
+    margin-bottom: .5em
+    padding-inline: .25em
+    &:first-child
+      margin-top: 0.5em
+
+#markdown-toc +,
+.api >
+  h1, h2, h3
+    margin-top: 0.5em
+
+body.headings-anchor main
+  h1[id], h2[id], h3[id]
+    @extend .pointer
+    padding-left: 0
+    &::before
+      content: '§ '
+      font-weight: 100
+      color: var(--fg-dim)
+  h1[id], h2[id], h3[id]
+    &:hover
+      &::before
+        color: var(--link)
+
 header
   h1
     @extend .uppercase
@@ -18,25 +41,32 @@ header
   img.logo
     width: .75em
     margin-right: .2em
-
 b, strong, th
   font-weight: 600
-
+// Cursor on abbreviations
+abbr
+  cursor: help
+// Super and sub scripts
+sup
+  vertical-align: top
+sub
+  vertical-align: bottom
 .label
   @extend .uppercase
   font-family: 'Eurostile'
-  color: var(--grey)
+  color: var(--fg-dim)
 .label-wide, legend
   display: block
-  margin-bottom: .2em
+  margin: 0 0 0.2em 0.2em
   text-transform: uppercase
   font-weight: bolder
-  color: var(--dim)
+  color: var(--fg-dim)
   font-family: "Eurostile Extended"
+  letter-spacing: 1px
 
 .description
   @extend .dimmer
-  color: var(--grey)
+  color: var(--fg-dim)
   margin-block: 0.2em
 
 footer, aside, header [aria-label]::before,
@@ -45,20 +75,22 @@ footer, aside, header [aria-label]::before,
 
 [role="doc-endnotes"], [aria-label='Pagination']
   margin-top: 2em
-  &:before
+  &::before
     display: none
-  border-top: 1px solid var(--twenty)
+  // border-top: 1px solid var(--bg-dim)
   padding-block: 1em
-  [role="doc-endnote"] p,
-  div a[rel]
-    &:before
-      color: var(--grey)
-      text-decoration: none
+  [role="doc-endnote"] p
     margin-block: .5em
+  time
+    @extend .dimmer
+  div a[rel]
+    &::before
+      display: none
 
 time
-  @extend .default
+  cursor: default
+  color: var(--fg)
   span
     text-decoration-style: dashed !important
     text-decoration: underline
-    text-decoration-color: var(--grey)
+    text-decoration-color: var(--fg-dim)

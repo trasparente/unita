@@ -1,0 +1,67 @@
+{{ include.title | default: include.category | default: include.csv | default: include.json | default: include.yml | default: "View widget" | capitalize }}
+-----
+{% if include.csv or include.liquid %}
+  {% assign csv = site.data[include.csv] | default: include.liquid %}
+  <table class='{{ include.class }}' data-sort='{{ include.sort }}' data-limit='{{ include.limit }}'>
+    <thead>
+      <tr>
+        {% for header in csv.first %}<th>{{ header[0] }}</th>
+        {% endfor %}
+      </tr>
+    </thead>
+    <tbody>
+      <tr class='only-child'><td colspan='{{ csv.first.size }}'>No data</td></tr>
+    {% for row in csv %}
+      {% if include.category contains row.category or include.category == nil %}
+      <tr data-row='{{ forloop.index }}'>{% for cell in row %}
+        <td data-header='{{ cell[0] }}' data-value='{{ cell[1] }}'>{% if cell[0] == "date" or cell[0] == "unix" %}
+          <time datetime="{{ cell[1] | date_to_rfc822 }}" data-sort='{{ cell[1] | date: "%s" }}'>{{ cell[1] | date: "%F" }} </time>{% else %}{{ cell[1] }}{% endif %}</td>
+        {% endfor %}</tr>
+      {% endif %}{% endfor %}
+    </tbody>
+  </table>
+{% elsif include.json %}
+<div class="highlight highlighter-rouge {{ include.class }}"><pre data-json>{{ site.data[include.json] | jsonify }}</pre></div>
+{% elsif include.yml %}
+<div class="highlight highlighter-rouge {{ include.class }}"><pre data-yml>{{ site.data[include.yml] | default: include.yml | jsonify }}</pre></div>
+{% endif %}
+{% capture api %}
+
+Render data files or liquid objects.
+
+- `csv`, `json` or `yml`: data filename, no extension
+- `liquid`: liquid object
+- `title`: optional, heading text, default to `category` or filename
+- `class`: optional, space separated class list for the element
+
+```liquid
+{% raw %}{% include widgets/view.html csv='csv' sort='desc' %}
+{% include widgets/view.html liquid=page.list %}
+{% include widgets/view.html json='json' %}
+{% include widgets/view.html yml='yml' %}{% endraw %}
+```
+
+Options for `csv`
+
+- `limit`: hide extra rows if data-limit attribute is set, negative limit show table bottom rows
+- `category`: filter rows given a string for the `category` property
+- `sort`: optional, can be `asc` or `desc` to sort the first column numeric values  
+  default state is `unsorted`
+
+**Csv table**
+```html
+<table class='...' data-sort='...' data-limit='...'>
+  <tr data-row='1'>
+    <td data-header='...' data-value='...'>
+      <!-- if header is `date` or `unix` -->
+      <time datetime='date_to_rcf822'>ISO 8601 </time>
+...
+
+```
+Styles
+```css
+td[data-value='briefing']{color:var(--color-green)}
+td[data-value='bill']{color:var(--color-orange)}
+td[data-value='trash']{color:var(--fg-muted)}
+```
+{% endcapture %}

@@ -1,13 +1,16 @@
 details
-  // background-color: var(--ten)
-  // padding: .5em
   summary
     @extend .link
+    // display: inline
+    &::marker
+      color: var(--fg-dim)
     &:active
-      color: var(--link)
       &::marker
-        color: var(--grey)
+        color: var(--fg)
     &:hover
+      color: var(--fg)
       text-decoration: none
       &::marker
         @extend .fg
+html.mobile details[open]
+  border-bottom: 1px solid var(--bg-dim)

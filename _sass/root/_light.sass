@@ -1,0 +1,20 @@
+//
+// LIGHT SCHEME
+//
+@mixin light-scheme
+  color-scheme:           light
+  $bg:                    hsl(0, 0%, map-get($shades, 'white'))
+  $fg:                    hsl(0, 0%, map-get($shades, 'black'))
+  --bg:                   var(--shade-white)
+  --bg-subtle:            var(--shade-lighter)
+  --bg-dim:               var(--shade-light)
+  --fg:                   var(--shade-black)
+  --fg-dim:               var(--shade-grey)
+  --fg-subtle:            var(--shade-light)
+  --link:                 var(--fg-cyan)
+  @each $name, $value in $colors
+    --#{$name}:           #{$value}
+    --fg-#{$name}:        #{color-mix(in oklch, $value, $fg 30%)}
+    --bg-#{$name}:        #{color-mix(in oklch, $value, $bg 65%)}
+    --bg-dim-#{$name}:    #{color-mix(in oklch, $value, $bg 83%)}
+    --bg-subtle-#{$name}: #{color-mix(in oklch, $value, $bg 92%)}

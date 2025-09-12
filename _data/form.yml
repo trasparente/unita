@@ -3,14 +3,16 @@
 # Required
 file: fields.json
 
-# Optional timestamp to save as 'folder/file/{timestamp}.ext'
-timestamp: true
+# Optional timestamp
+# 'file' = 'folder/file/{timestamp}.ext'
+# 'folder' = '{timestamp}/folder/file.ext'
+timestamp: folder
 
 # Optional save in 'user' subfolder 'user/folder/file.ext'
 user: true
 
-# Optional classes like `fork` or `admin`
-class: space separated list
+# Optional Space separated classnames for the form
+class: Space separated list
 
 # Form field as yaml fields
 # Columns if file is 'csv'

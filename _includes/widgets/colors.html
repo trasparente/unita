@@ -1,0 +1,38 @@
+{% assign shades = 'black darker dark grey light lighter white' | split: ' ' %}
+{% assign colors = 'blue cyan green yellow orange red pink violet' | split: ' ' %}
+<fieldset><legend>{{shades.size }} Shades</legend>
+{% for s in shades %}<div class='demo' style='background:var(--shade-{{ s }});color:var(--opposite-shade-{{ s }});'>--shade-{{ s }}</div>{% endfor %}
+</fieldset>
+<fieldset><legend>3 Brights</legend>
+{% assign fg = 'fg fg-dim fg-subtle' | split: ' ' %}
+{% for b in fg %}<div class='demo' style='color:var(--{{ b }});'>--{{ b }}</div>{% endfor %}
+{% assign bg = 'bg bg-subtle bg-dim' | split: ' ' %}
+{% for b in bg reversed %}<div class='demo' style='background:var(--{{ b }})'>--{{ b }}</div>{% endfor %}
+</fieldset>
+<fieldset><legend>{{ colors.size }} Colors</legend>
+{% for h in colors %}<div class='demo' style='background:var(--{{ h }});color:var(--opposite-{{ h }});'>--{{ h }}</div>{% endfor %}
+</fieldset>
+<fieldset><legend>fg</legend>
+{% for h in colors %}<div class='demo' style='color:var(--fg-{{ h }});'>--fg-{{ h }}</div>{% endfor %}
+</fieldset>
+<fieldset><legend>bg</legend>
+{% for c in colors %}<div class='demo' style='background:var(--bg-{{ c }});'>--bg-{{ c }}</div>{% endfor %}
+</fieldset>
+<fieldset><legend>bg-dim</legend>
+{% for c in colors %}<div class='demo' style='background:var(--bg-dim-{{ c }});'>--bg-dim-{{ c }}</div>{% endfor %}
+</fieldset>
+<fieldset><legend>bg-subtle</legend>
+{% for c in colors %}<div class='demo' style='background:var(--bg-subtle-{{ c }});'>--bg-subtle-{{ c }}</div>{% endfor %}
+</fieldset>
+
+<!-- COLORS CSS -->
+<style type='text/css'>
+.demo {
+  width: 9em; height: 2em;
+  display: flex; align-items: center; justify-content: center;
+  border: 2px solid transparent; border-radius: var(--border-radius);
+}
+.demo + .demo {
+  margin-top: .5em;
+}
+</style>

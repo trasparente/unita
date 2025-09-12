@@ -3,7 +3,7 @@
 $.ajaxPrefilter (options, ajaxOptions, request) ->
   options.cache = false
   # Notification on FAIL
-  request.fail (request, status, error) -> spy "#{request.status} #{request.responseJSON?.message || error}", 'warning'
+  # request.fail (request, status, error) -> if status isnt 'canceled' then spy "#{request.status || status} #{request.responseJSON?.message || error}", 'warning'
   # Check GitHub requests
   if options.url.startsWith '{{ site.github.api_url }}'
     # Proper Accept header
@@ -14,5 +14,16 @@ $.ajaxPrefilter (options, ajaxOptions, request) ->
   return # End Ajax prefilter
 
 # Control html.ajax class
-$(document).ajaxStart () -> html.addClass 'ajax'
-$(document).ajaxComplete () -> html.removeClass 'ajax'
+doc.on 'ajaxStart', () -> html.addClass 'ajax'
+doc.on 'ajaxStop', () -> setTimeout remove_ajax, 1000
+doc.on 'ajaxError', (e,r,x) ->
+  message = "#{r.responseJSON?.message || 'error'}"
+  url = x.url.replace /https\:\/\/|\?_=\d+|api.github.com\//g, ''
+  # regex to delete till the end: string.replace(/[?].*/,'')
+  console.log 'ajaxError', r.status, r.statusText, x.url.split('?')[0]
+  return
+doc.on 'ajaxSuccess', (e,r,x) ->
+  console.log r.status, x.url.replace /https\:\/\/|\?_=\d+|api.github.com\//g, ''
+  return
+
+remove_ajax = -> html.removeClass('ajax')

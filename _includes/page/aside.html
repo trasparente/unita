@@ -1,7 +1,0 @@
-<aside>
-{% if page.date %}<div>{% include widgets/time.html datetime=page.date text='Date:' %}</div>{% endif %}
-{% if page.category %}<div>Category: {{ page.category | join: ', ' }}</div>{% endif %}
-{% if page.categories.size > 0 %}<div>Categories: {{ page.categories | join: ', ' }}</div>{% endif %}
-{% if page.tag %}<div>Tag: {{ page.tag | join: ', ' }}</div>{% endif %}
-{% if page.tags.size > 0 %}<div>Tags: {{ page.tags | join: ', ' }}</div>{% endif %}
-</aside>

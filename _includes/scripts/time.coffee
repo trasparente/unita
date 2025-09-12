@@ -1,3 +1,6 @@
+# Return ISO 8601 date YYYY-MM-DD
+date_iso = (date) -> new Date(date || +new Date()).toLocaleDateString 'sv'
+
 # Display relative time with eventual update
 # Add temporal classes
 # Add readable date as title
@@ -12,8 +15,10 @@ seconds =
 relative_time = (e) ->
   el = $ e
   datetime = el.attr 'datetime' || new Date()
+  style = el.attr 'data-style' || 'long'
   duration = duration_seconds(el.attr('duration') || 'P')
-  formatter = new Intl.RelativeTimeFormat lang, { style: 'short' }
+  # Language-sensitive relative time formatting
+  formatter = new Intl.RelativeTimeFormat lang, { style: style }
   date = if datetime instanceof Date then datetime else new Date datetime
   secondsElapsed = (date.getTime() - Date.now()) / 1000
   if duration
@@ -55,19 +60,3 @@ relative_time = (e) ->
 
 # Bootstrap
 $('time[datetime]').each -> relative_time @
-
-@spy = (msg, kind = 'info', form = 0) ->
-  timer = $('<time/>', {
-    text: "#{msg} "
-    datetime: new Date().toString()
-    class: "spy-#{kind}"
-  })
-  base = if !form then $('#bottom-left') else form.find '[data-input="message"]'
-  base.prepend timer.append $('<span/>')
-  setTimeout relative_time, 1000, timer
-  timer.on 'click', (e) ->
-    e.stopPropagation()
-    target = $ e.target
-    if target.prop('tagName') is 'TIME' then target.remove() else target.parent().remove()
-    return
-  return

@@ -1,15 +1,30 @@
 {% assign form = include.form | default: page.form %}
 {% if form.file == nil %}> `form` widget: Missing `file` property.
 {:role="alert"}{% else %}
+{% assign filename = form.file | split: '.' | first %}
 {% if form.timestamp %}
-{% assign ext = form.file | split: '.' | last %}
-{% assign extension = '.' | append: ext %}
-{% assign unix = site.time | date: "%s" %}
-{% assign file = form.file | replace: extension, '/' | append: unix | append: extension %}
-{% else %}{% assign file = form.file %}{% endif %}
+  {% assign ext = form.file | split: '.' | last %}
+  {% assign extension = '.' | append: ext %}
+  {% assign unix = site.time | date: "%s" %}
+  {% if form.timestamp == 'file' %}
+    {% assign file = form.file | replace: extension, '/' | append: unix | append: extension %}
+  {% elsif form.timestamp == 'folder' %}
+    {% assign file = unix | append: '/' | append: form.file %}
+  {% endif %}
+{% else %}
+  {% assign file = form.file %}
+{% endif %}
 {% if form.user %}{% assign file = file | prepend: 'user/' %}{% endif %}
-<form class='prevent{% if form.class %} {{ form.class }}{% endif %}' data-file='{{ file }}'{% if form.timestamp %} data-timestamp='{{ form.timestamp }}'{% endif %}>
-<h3>{{ form.name | capitalize | default: file | default: 'Form' }}</h3>
+{% if form.folder %}{% assign file = file | prepend: '/' | prepend: form.folder %}{% endif %}
+<!-- FORM -->
+<form class='old prevent{% if form.class %} {{ form.class }}{% endif %}' data-file='{{ file }}'{% if form.timestamp %} data-timestamp='{{ form.timestamp }}'{% endif %} markdown=1>
+<h3>{{ form.title | default: file }}</h3>
+<!-- Options -->
+{% assign root = 'file, timestamp, user, class, folder' | split: ',' %}
+```yml
+{% for r in root %}{% assign string = r | strip %}{% if form[string] %}{{ string }}: {{ form[string] }}
+{% else %}{% endif %}{% endfor %}```
+<!-- Fields -->
 {% for field in form.fields %}
   <div data-input='{{ field[1].type }}'{% if field[1].multiple %} data-multiple='true'{% endif %}>
   {% if field[1].type != 'hidden' %}<label for='{{ field[0] }}'>{{ field[1].title | default: field[0] | replace: "_", " " | capitalize }}</label>{% endif %}
@@ -100,10 +115,11 @@
   {% if field[1].description %}{{ field[1].description | newline_to_br | markdownify }}{% endif %}
   </div>
 {% endfor %}
+<!-- Buttons -->
   <div data-input="buttons">
     <label for='send-button'>Send</label>
-    <input type='submit' name='submit' value='Submit'>
-    <input type='reset' name='reset' value='Reset'>
+    <input type='submit' title='Save as {{ file }}' name='submit' value='SUBMIT'>
+    <input type='reset' title='Reset form' name='reset' value='RESET'>
   </div>
   <div data-input="message" role='status'></div>
 </form>
@@ -118,11 +134,16 @@ Render a functional form from a `yml` object in the page front matter
 
 **Form properties**
 
-- file: fields.json
-- timestamp: true
-- user: true
-- class: space separated list
-- fields:
-  - type: text, hidden, email, textarea, number, boolean, color, date, datetime, select, select multiple, radio, ref, random, roll (csv)
-  - options: required, disabled, placeholder
+- `file:` fields.json
+- `timestamp`: `file` or `folder`
+- `user`: true
+- `class`: space separated list
+- `fields`:
+  - `type`: text, hidden, email, textarea, number, boolean, color, date, datetime, select, select multiple, radio, ref, random, roll (csv)
+  - `options`: required, disabled, placeholder
+
+Form bottom contains a message box for the future
+```html
+<div data-input="message" role='status'></div>
+```
 {% endcapture %}

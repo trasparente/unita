@@ -1,0 +1,22 @@
+//
+// DARK SCHEME
+//
+@mixin dark-scheme
+  color-scheme: dark
+  // Colors LOOP
+  @each $name, $value in $colors
+    --#{$name}:           #{$value}
+    --fg-#{$name}:        #{color-mix(in oklch, $value, $fg #{map-get($fg-mix, $name)})}
+    --bg-#{$name}:        #{color-mix(in oklch, $value, $bg #{map-get($bg-mix, $name)})}
+    --bg-dim-#{$name}:    #{color-mix(in oklch, $value, $bg #{map-get($bg-dim-mix, $name)})}
+    --bg-subtle-#{$name}: #{color-mix(in oklch, $value, $bg #{map-get($bg-subtle-mix, $name)})}
+
+\:root
+  @include dark-scheme
+  --bg:                   var(--shade-black)
+  --bg-subtle:            var(--shade-darker)
+  --bg-dim:               var(--shade-dark)
+  --fg:                   var(--shade-white)
+  --fg-subtle:            var(--shade-dark)
+  --fg-dim:               var(--shade-grey)
+  --link:                 var(--cyan)

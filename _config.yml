@@ -9,23 +9,33 @@ defaults:
       path: ''
     values:
       layout: default
+      default_class: remember-document
   - scope:
       path: ''
       type: posts
     values:
       pagination: true
+      aside: true
+      default_class: remember-document headings-anchor
 
 # COLLECTIONS
 collections:
   docs:
     title: Docs
     output: true
-  flows:
-    title: Flows
+    sort_by: order
+  maya:
+    title: Maya
     output: true
+    sort_by: order
+  games:
+    title: Games
+    output: true
+    sort_by: order
   posts:
     title: Posts
 
 # OPTIONS defaults
 #language: en
 #direction: ltr
+#soma: true

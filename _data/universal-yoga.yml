@@ -1,0 +1,108 @@
+movements:
+  s: stright
+  f: longitudinal forward
+  b: longitudinal backward
+  u: longitudinal upward
+  d: longitudinal downward
+  l: transverse, rotation left
+  r: transverse, rotation right
+  i: rotation, drawing inward
+  o: rotation, drawing outward
+formation_scheme:
+  - spine:
+    - neck
+    - chest
+    - waist
+  - arm:
+    - shoulder
+    - elbow
+    - wrist
+  - leg:
+    - hip
+    - knee
+    - ankle
+positions:
+  - head up
+  - abdomen up
+  - one side
+  - abdomen down
+  - head down
+table:
+  sūtrita_prescription:
+    # name: [ [ poses.. ], [ poses.. ], ... ]
+    0.hiṃkāra.first_sound:
+      # [ type, poses(change side), repetitions, name, counts, meaning]
+      - [ N,1,'',om,ex ]
+      - [ A,1,'',dūra,in,far, ]
+      - [ P,2,5x,vānara,ex-in,ape ]
+      - [ V,(7),'',viṣu,ex-in,various directions ]
+    1.visaraṇa.going_out:
+      - [ M,1,'',uttanāsana b,3,intense stretch ]
+      - [ V,3,5x,kapanā,5,caterpillar ]
+      - [ A,1,'',utkatāsana,5,stretch up ]
+      - [ V,(2,5x,paṭara bhaṭa,ex-in,flying Warrior ]
+      - [ A,2),'',praṇati bhaṭa,10,bowing warrior ]
+      - [ V,2,10x,baddha hasta tulana,ex-in,joined hands lift ]
+    2.prathana.unfolding:
+      - [ A,1 ,'',adho mukha,10,mouth down ]
+      - [ V,(2,5x,pārśva viyacchati,ex-in,side spread out ]
+      - [ A,(1,'',utthita parsvakonāsana,10,extended side angle ]
+      - [ V,(2,5x,pārśva kapanā,5,side caterpillar ]
+      - [ A,1),'',pārśva nyāsa,10,side placing ]
+    3.śakrarūpa.lowering_form:
+      - [ V,2,5x,ubha viyacchati,ex-in,both spread out ]
+      - [ A,1,'',ūrdhva ādhāra,10,erect ground ]
+      - [ V,3,3x,pārśva nyāsa,5-in-5,side placing ]
+      - [ A,1,'',prasarita padottanāsana,10,wide stance forward bend ]
+      - [ V,2,10x,mukta hasta tulana,ex-in,separated hands lift ]
+    4.āśāsana.craving:
+      - [ A,(1),'',prati aṅga,10,back limb ]
+      - [ V,2,10x,gavala,ex-in,bison ]
+      - [ A,2,'',gavālambha,5,hospitality ]
+      - [ V,(4),'',viṣu kandī,3,various directions knot ]
+    5.mahīpatana.prostration:
+      - [ A,(1,'',ardha bhek āsana,5,half frog pose ]
+      - [ A,1),'',ardha bhek ānaṭa,5,half frog curved ]
+      - [ A,1,'',sapakṣa,10,feathered ]
+      - [ A,1,'',kapanā,5,caterpillar ]
+      - [ A,1,'',śambūka,10,snail ]
+      - [ A,1,'',urdhva mukha,10,upward mouth ]
+      - [ A,1,'',ananda,5,happy ]
+    0.udgīta.celebration:
+      - [ A,(2),'',kūrpara,5,elbow ]
+      - [ A,(2),'',jānu,1-5,knee ]
+      - [ A,(2),'',grīvā,5-5,neck ]
+      - [ A,(2),'',nalakinī,1-10,leg ]
+      - [ A,3,3x,jayanta,5-in-5,victorious ]
+    1.vakra.twist:
+      - [ A,(2),'',sam āliṅgana,5-1,same embrace ]
+      - [ A,1,'',uṣṭrāsana,5,Camel]
+      - [ A,6,'',pārśva dhanurāsana,5-(5-1)-5,revolved bow ]
+      - [ I,1,'',gavālambha,ex-in,hospitality ]
+    2.setu.bridge:
+      - [ I,1,'',dandāsana,in-ex,staff pose ]
+      - [ V,3,5x,lampha meṣa,5,jump ram ]
+      - [ V,2,5x,prati navāsana,1-10,back boat pose ]
+      - [ A,2,5x,phāṇḍa sedhā,1-10,belly porcupine ]
+      - [ A,3,'',urdhva dhanurasa,10,upward bow ]
+      - [ M,1,'',pascimottanāsana,3,seated forward bend ]
+    3.upaviṣṭa.sit:
+      - [ A,(2),'',jānu śīrṣāsana,10-1, ]
+      - [ A,(3),'',ardha baddha padminī,3-3-10,half bounded lotus ]
+      - [ A,4 ,'',baddha koṇa kūrpara,3-10-1-5,bounded corner gomito ]
+    4.naṭī.actress:
+      - [ V,3,5x,lampha meṣa,in-ex-in,jump ram ]
+      - [ A,(3),'',prati nalakinī,1-5-1,back leg ]
+      - [ A,1,'',Bhuja Pidāsana,10,shoulder press ]
+      - [ A,(1),'',prati āhū,10,back call ]
+    5.ūrdhvamūlam.upside_roots:
+      - [ I,1,'',dandāsana,in,staff pose ]
+      - [ A,1,'',sarvāṅgāsana,3,supported pose ]
+      - [ V,(5),'',deśaka nalakinī,1-1-1-1-10,indicator legs ]
+      - [ A,3,'',halāsana,10-1-1,plough pose ]
+      - [ A,4,'',ardha hasta śīrṣāsana,1-5-20-10,half hand headstand ]
+    0.nidāna.destruction:
+      - [ P,1,'',prati padminī,20,back lotus ]
+      - [ M,1,'',śavāsana,20 m,corpse ]
+      - [ D,1,'',baddha dhyāna,30 m,folded meditation ]
+      - [ N,1,'',om,ex ]

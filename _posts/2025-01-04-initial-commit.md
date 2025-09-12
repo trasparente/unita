@@ -24,3 +24,4 @@ form:
 # Initial commit
 
 {% include widgets/form.html %}
+{% include widgets/view.html csv='time' %}

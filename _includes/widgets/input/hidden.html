@@ -1,0 +1,1 @@
+{% assign opt = include.options %}<input type='hidden' id='{{ include.id }}' name='{{ include.id }}'{% if opt.value %} value='{{ opt.value }}'{% endif %}{% if opt.timestamp %} value='{{ site.time | date: "%s" }}'{% endif %}{% if opt.slug %} data-slug='{{ opt.slug }}'{% endif %}>

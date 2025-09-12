@@ -1,0 +1,14 @@
+form.input
+
+  // RESETTED FORM
+  &.reset [type='reset']
+    @extend .inert
+
+  // TO BE RESETTED
+  &:not(.reset) [type='reset']
+    border-left-color: var(--fg-dim)
+    color: var(--fg)
+    &:active
+      border-color: var(--fg)
+    &:hover, &:focus
+      border-left-color: var(--fg)

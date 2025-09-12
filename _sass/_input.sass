@@ -1,0 +1,27 @@
+form.input
+
+  // DATA INPUTS
+  [data-input]
+    padding-block: 0.5em
+    > label
+      @extend .label-wide
+      &:has(~ input:focus)
+        color: var(--fg)
+    // Followed by DATA INPUT message
+    // &:has(+ [data-input='message'])
+    //   padding-bottom: 0
+  // Top field
+  [data-input='hidden'] + [data-input]
+    padding-top: 0
+
+  // VALID Form
+  &:valid [data-input='buttons']
+    > label
+      color: var(--fg)
+
+  // VALID Fields
+  [data-input]:not([data-input='buttons'])
+    input:valid
+      border-left-color: var(--bg-green)
+    input:not(:valid)
+      border-left-color: var(--bg-orange)

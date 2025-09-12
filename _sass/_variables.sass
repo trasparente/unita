@@ -1,0 +1,24 @@
+// Main: BACKGROUND and FOREGROUND
+// SHADES as LIGHTNESS percent
+$shades: ('black': 4%,'darker': 10%,'dark': 20%,'grey': 40%,'light': 60%,'lighter': 70%,'white': 85%) !default
+
+$bg: hsl(0, 0%, map-get($shades, 'black'))
+$fg: hsl(0, 0%, map-get($shades, 'white'))
+
+// COLORS as HTML names
+$colors: ('blue': midnightblue,'cyan': dodgerblue,'green': forestgreen,'yellow': goldenrod,'orange': chocolate,'red': darkred,'pink': MediumVioletRed,'violet': indigo) !default
+
+// bg mix percent for background
+$bg-mix: ('blue': 40%,'cyan': 50%,'green': 50%,'yellow': 50%,'orange': 50%,'red': 50%,'pink': 50%, 'violet': 40%) !default
+// bg mix percent for dim background
+$bg-dim-mix: ('blue': 60%,'cyan': 73%,'green': 70%,'yellow': 73%,'orange': 73%,'red': 65%,'pink': 73%, 'violet': 63%) !default
+// bg mix percent for subtle background
+$bg-subtle-mix: ('blue': 70%,'cyan': 83%,'green': 80%,'yellow': 83%,'orange': 83%,'red': 73%,'pink': 80%, 'violet': 73%) !default
+// fg mix percent for foreground
+$fg-mix:('blue': 40%,'cyan': 30%,'green': 30%,'yellow': 30%,'orange': 30%,'red': 30%, 'pink': 30%,'violet': 35%) !default
+
+// was 40em, change in _includes/scripts/helpers.coffee
+$mobile_width:  650px !default
+$border_radius: 3px !default
+$blink:         1s !default
+$target-margin: 5em !default

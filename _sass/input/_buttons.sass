@@ -1,0 +1,21 @@
+form.input
+
+  // BUTTONS
+  [type='submit'], [type='reset'], [type='button']
+    line-height: 1.2em !important
+    &:hover
+      background-color: transparent
+
+  // Buttons container inside [data-input=buttons]
+  [data-input='buttons'] .buttons-container
+    @extend .flex
+    gap: .4em
+    // Input fills 50%
+    input
+      flex: 1 1 0
+      width: 0
+
+  // No Buttons
+  &.no-buttons [data-input='buttons']
+    display: none
+    pointer-events: none

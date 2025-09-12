@@ -5,4 +5,8 @@ a, .link
   &:hover
     text-decoration: underline
   &:active
-    color: var(--grey)
+    color: var(--fg-dim)
+
+// Table UI
+table[data-limit][data-sort] tbody td
+  @extend .pointer

@@ -21,3 +21,18 @@
     content: attr(aria-label)
     margin-right: 0.3em
     // @extend .label
+
+.behind.blink.pointer:hover
+  ::before
+    color: var(--fg)
+
+#status div
+  @extend .border-radius
+  padding: 0 0 3px 5px
+  &.debug
+    background: var(--bg-yellow)
+    &::before
+      color: hwb(from oklch(from var(--bg-yellow) l 0 0) h calc(((b - 50) * 999)) calc(((w - 50) * 999)))
+  &.ajax
+    &::before
+      color: var(--fg-green)

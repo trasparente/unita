@@ -36,5 +36,5 @@ Description
 <div class="api" markdown=1>### {{ include.include | split: "/" | last | split: "." | first | capitalize }}
 {{ api | mardowify }}
 
-File: {% assign absolute_path = include_file | prepend: '_includes/' %}{% include widgets/github_link.html path=absolute_path %}
+File: {% assign absolute_path = include_file | prepend: '_includes/' %}{% include widgets/links/github_link.html path=absolute_path %}
 </div>{% endif %}

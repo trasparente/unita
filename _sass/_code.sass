@@ -2,17 +2,29 @@ tt, code, kbd, samp
   font-size: 90%
   font-family: var(--ff-code)
   letter-spacing: -.4px
-  background: var(--ten)
-  color: var(--dim-cyan)
+  vertical-align: bottom
+  background: var(--bg-subtle)
+  color: var(--fg-yellow)
+
+// INLINE
+code.highlighter-rouge
+  @extend .border-radius
+  padding: .1em .3em
 
 // BLOCKS
 // Fenced, kramdown, indented:
 // div.highlighter-rouge > div.highlight > pre.highlight > code
 // liquid:
 // figure.highlight > pre > code
-.highlight
-  border-radius: 3px
+div.highlighter-rouge
+  display: table
+  margin-block: 1em
+[class*='highlight']
+  @extend .border-radius
   pre
+    @extend .border-radius
     white-space: pre-wrap
-    font-size: 90%
-    padding: .3em .3em
+    // font-size: 90%
+    padding: .4em .6em
+    // Reset browser margin
+    margin: 0

@@ -1,0 +1,23 @@
+.spy
+  @extend .blockquote, .pointer, .flex
+  flex-direction: column-reverse
+  border-color: var(--link)
+  margin: 0
+  padding: 0.5em
+  min-width: 10em
+  span
+    display: inline-block
+    @extend .pulse
+  time
+    @extend .dimmer
+  &.spy-info
+    border-color: var(--bg-dim)
+  &.spy-success
+    border-color: green
+  &.spy-error
+    border-color: var(--red)
+  &.spy-warning
+    border-color: darkgoldenrod
+  &:hover
+    border-color: var(--bg-dim)
+    color: var(--fg-dim)

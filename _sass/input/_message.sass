@@ -1,0 +1,22 @@
+form.input
+
+  // DATA-INPUT: message
+  [data-input='message']
+    color: var(--fg-dim)
+    &:empty
+      display: none
+    .filename
+      font-size: 1em
+      color: var(--fg-dim) !important
+      &:empty
+        display: none
+
+  &.no-message [data-input='message']
+    display: none
+    pointer-events: none
+
+  // Filename color
+  &.not-found [data-input='message'] .filename
+    color: var(--fg-orange) !important
+  &.found [data-input='message'] .filename
+    color: var(--fg-green) !important

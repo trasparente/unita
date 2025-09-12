@@ -1,25 +1,54 @@
 .hidden, [hidden], template, [data-input='hidden']
   display: none
+.invisible
+  opacity: 0
+
+// DARK
+.dark,
+body[data-color-scheme='dark'],
+body[data-color-scheme='light'] .opposite
+  @include dark-scheme
+
+// LIGHT
+.light,
+body[data-color-scheme='light'],
+body[data-color-scheme='dark'] .opposite
+  // Replace variables
+  @include light-scheme
+  // Reset back and foreground
+  @extend .bg, .fg
+
+// Fore and Background
 .fg
   color: var(--fg)
 .bg
   background-color: var(--bg)
+
+// Spacing
 .mpz
   margin: 0
   padding: 0
 .padding-layout
   padding: var(--padding-layout)
+.inline-block
+  display: inline-block
 .flex
   display: flex
   justify-content: space-between
   flex-wrap: wrap
   flex-direction: row
   gap: .4em
+.flex-start
+  justify-content: flex-start
+.childs-no-margin > *
+  margin: 0 !important
 .smaller
   font-size: smaller
+.medium
+  font-size: medium
 .dimmer
-  @extend .smaller
-  color: var(--dim)
+  @extend .medium
+  color: var(--fg-dim)
 .oblique
   font-style: oblique
 .center
@@ -28,13 +57,40 @@
   text-transform: uppercase
 .pointer
   cursor: pointer
-.default
-  cursor: default
 .border
-  border: 2px solid var(--twenty)
-  border-radius: 3px
+  border: 2px solid var(--bg-dim)
+.border-radius
+  border-radius: var(--border-radius)
+
+// STRIPES
+.stripes
+  @include background-stripes(-45, var(--bg), var(--bg-subtle), 10px)
+
+// INERT to Mouse and Transitions
+.inert
+  transition: none
+  pointer-events: none
+  color: var(--fg-dim)
+  border-left-color: var(--fg-subtle)
+
+// Disabled Class
+.disabled
+  @extend .inert
+  opacity: 50%
+  filter: saturate(0)
+
+// BLINK
 .blink
-  animation: blinker $blink step-start infinite
-@keyframes blinker
+  animation: blink $blink step-start infinite
+@keyframes blink
   50%
     opacity: 0
+// DIM BLINK
+.dim-blink
+  animation: half_blink $blink step-start infinite
+@keyframes half_blink
+  50%
+    opacity: 0.5
+// PULSE
+.pulse
+  animation: $blink ease-in-out infinite half_blink

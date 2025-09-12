@@ -1,0 +1,24 @@
+// Opposite B/N color
+\:root
+  @each $name, $value in $colors
+    --opposite-#{$name}: hwb(from oklch(from var(--#{$name}) l 0 0) h calc(((b - 50) * 999)) calc(((w - 50) * 999)))
+
+\:root
+  // TYPOGRAPHY
+  --ff-body:        system-ui
+  --fs-body:        20px
+  --fs-body-mobile: 17px
+  --ff-headings:    'Eurostile'
+  // Monospace Font
+  --ff-code:        monospace, 'Lucida Console', 'Consolas'
+  // SPACES
+  --padding-layout: .5em .6em
+  --icon-padding: 1.3em
+  // BORDER
+  --border-radius: #{$border_radius}
+  // EFFECTS
+  --blink:          1s
+  // SHADES
+  @each $shade, $lightness in $shades
+    --shade-#{$shade}: hsl(0,0%,#{map-get($shades, $shade)})
+    --opposite-shade-#{$shade}: hwb(from oklch(from var(--shade-#{$shade}) l 0 0) h calc(((b - 50) * 999)) calc(((w - 50) * 999)))

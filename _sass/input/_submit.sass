@@ -1,0 +1,14 @@
+// SUBMIT
+form.input
+
+  // VALID Form
+  &:valid [type='submit']
+    border-left-color: var(--fg-dim)
+    &:hover, &:focus
+      border-left-color: var(--fg)
+    &:active
+      border-color: var(--fg)
+
+  // INVAILD Form
+  &:not(:valid) [type='submit']
+      @extend .inert

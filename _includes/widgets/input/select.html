@@ -1,0 +1,6 @@
+{% assign opt = include.options %}<select id='{{ include.id }}' name='{{ include.id }}'{% include widgets/input/attributes.html attributes = attributes opt = opt %}>
+{% if opt.required %}<option value=''></option>{% endif %}
+{% for item in opt.options %}
+  <option value='{{ item }}'{% if opt.value == item %} selected{% endif %}>{{ item }}</option>
+{% endfor %}
+</select>

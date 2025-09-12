@@ -1,0 +1,52 @@
+// NAV
+// --------------
+.nav-container
+  z-index: 100
+  position: sticky
+  top: 0
+  @extend .bg
+
+  // NAV
+  nav
+    padding: 0.25em 0.6em
+    a
+      @extend .uppercase
+      font-weight: 600
+      &:hover
+        @extend .bg
+        border-color: var(--fg-dim)
+      &.collection-link[aria-current='true'],
+      &.document-link[aria-current='page'],
+      &.aria-current
+        @extend .opposite
+        border-color: var(--fg)
+        &:hover
+          border-color: var(--bg)
+      &.collection-link[aria-current='true']
+        background-color: var(--bg-dim) !important
+        
+
+  // Smaller buttons
+  nav.fullscreen a,
+  nav.sub-nav a
+    @extend .smaller
+
+  // SUBNAV
+  nav.sub-nav
+    padding-bottom: .5em
+    border-bottom: 1px solid transparent
+    // HIDE and SEEK
+    // Default
+    [data-collection]
+      .link-container
+        @extend .flex
+      // Hide all [data-collection]
+      &:not(:has(a[aria-current='page']))
+        display: none
+      // Show page [data-collection]
+      &:has(a[aria-current='page'])
+        display: block
+
+// Add bottom border if sticked
+html.nav-stick.not-fullscreen .nav-container nav.sub-nav
+  border-color: var(--fg-dim)

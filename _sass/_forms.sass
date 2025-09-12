@@ -1,57 +1,96 @@
+form
+  display: inline-block
+  width: fit-content
+  // Front matter highlight
+  [class*='highlight']
+    @extend .bg
+  .highlight pre
+    padding: 0
+  div.highlighter-rouge
+    margin-block: .5em
+  > h3
+    margin-top: 0.5em
+
+// DISABLE BUTTONS
+html
+  // UPDATED / BEHIND
+  &:not(.updated)
+    form [data-input='buttons']:has([type='submit'])
+      @extend .inert
+  &:not(.behind), &.updated
+    form [data-input='buttons']:has([type='submit'])
+      transition: opacity 0.2s ease-out, filter 0.5s ease-out
+
 // Appearence
-input, select, output, textarea
-  font-family: inherit
-  font-size: inherit
-  line-height: inherit
-  // Description paragraph of the field
-  // The <p> tag is added by liquid markdowinfy
-  // Appear as a <small> tag
-  &:focus
-    outline: none
-    background: var(--bg)
-    border-color: var(--grey)
-  // Field description is a paragraph
-  & + p
-    @extend .description
-  &[readonly], &[disabled]
-    cursor: not-allowed
-    color: var(--grey)
-    &:hover
-      border-color: transparent
-    &:active
-      background-color: var(--ten)
-      color: var(--grey)
 input, output, textarea
   appearance: none
   -webkit-appearance: none
 
+// Placeholder
+::placeholder, ::-moz-placeholder, ::-webkit-input-placeholder
+  color: var(--fg-dim)
+
+// Fields
+input, select, output, textarea
+  font-family: inherit
+  font-size: inherit
+  line-height: inherit
+  border-inline-width: 3px !important
+  // States
+  &:focus
+    outline: none
+    background: var(--bg)
+    border-color: var(--bg-dim)
+  // Field description is a paragraph
+  // The <p> tag is added by liquid markdowinfy
+  // Appear as a <small> tag
+  & + p
+    @extend .description
+    max-width: 18em
+    @include mobile
+      max-width: 15em
+  &[readonly], &[disabled]
+    cursor: not-allowed
+    color: var(--fg-dim)
+    &:hover
+      border-color: transparent
+    &:active
+      background-color: var(--bg-subtle)
+      color: var(--fg-dim)
+
 input:is([type="text"], [type="email"], [type="date"], [type="datetime-local"], [type="number"], [type="password"], [type="color"]),
 select, textarea
   min-width: 13em
-  // Overwrite uppercase in .button
+  // Overwrite uppercase and border from .button
   text-transform: none !important
 
-form
-  display: table
-html.ajax, html.behind
-  form
-    opacity: 50%
-    filter: saturate(0)
-    pointer-events: none
-
-[data-input]
-  padding-block: 0.5em
-  > label
-    @extend .label-wide
-    &:has(~ input:focus)
-      color: var(--fg)
-  &[role='status']:empty
-    display: none
-
 // RADIO TYPE
-[data-input='radio'] input
+.radio-container
+  display: flex
+  flex-direction: column
+  gap: .2em
+  & + .description
+    @extend .smaller
+    padding-inline: .2em
+    color: var(--fg-dim)
+
+input[type='radio']
   display: none
   & + label
-    @extend .button
-.radio-container + p
-  @extend .description
+    @extend .button, .smaller
+    line-height: 1.2
+    display: inline-block
+    .radio-name
+      font-weight: 600
+      @extend .uppercase
+    .descriptions
+      @extend .smaller
+      white-space: break-spaces
+  &:checked + label
+    color: var(--link)
+    .descriptions
+      color: var(--fg)
+  &:not(:checked) + label
+    color: var(--fg-dim)
+  &:not(:checked):hover + label
+    color: var(--fg)

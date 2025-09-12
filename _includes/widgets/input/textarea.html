@@ -1,0 +1,1 @@
+{% assign opt = include.options %}<textarea spellcheck='false' name='{{ include.id }}' id='{{ include.id }}'{% if opt.placeholder %} placeholder='{{ opt.placeholder }}'{% endif %}{% if opt.required %} required{% endif %}{% if opt.disabled %} disabled{% endif %}></textarea>

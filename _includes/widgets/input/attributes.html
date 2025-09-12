@@ -1,0 +1,5 @@
+{%- assign values = include.opt -%}
+{%- assign att = include.attributes | split: ',' -%}
+{%- assign specify = 'value,slug,autocomplete,min,max,step' | split: ',' -%}
+{%- assign identity = 'required,multiple,disabled' | split: ',' -%}
+{% for a in values %}{% if specify contains a[0] %} {{ a[0] }}='{{ a[1] }}'{% endif %}{% if identity contains a[0] %} {{ a[0] }}{% endif %}{% endfor %}

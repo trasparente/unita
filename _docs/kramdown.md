@@ -1,10 +1,10 @@
 ---
 order: 1
 ---
-# Kramdown
-{:.no_toc}
 - toc
 {:toc}
+# Kramdown
+{:.no_toc}
 
 > <https://kramdown.gettalong.org/>{:target="_blank"}
 
@@ -12,12 +12,12 @@ Kramdown is the default Markdown renderer for Jekyll and use the _GitHub Flavore
 
 Classes ids and attributes can be added with an Inline Attribute List (IAL) `{: .class #id key="value"}`{: .language-md}
 
-### Table of content
+## Table of content
 ```md
-# Title
-{:.no_toc}
 - toc
 {:toc}
+# Title
+{:.no_toc}
 ```
 
 Tables
@@ -31,8 +31,40 @@ Use `|----` for a new `<tbody>`{:.language-html} and `|====` for a `<tfoot>`{:.l
 
 Code
 ----
-Inline CSS: `body[hidden]{ color: hsl(30, 40%, 50%);}`{:.language-css}  
-Inline HTML: `<p data-type='ciro'></p>`{:.language-html}
+
+### Inline
+
+Surround with backticks `` `code` ``
+
+- CSS `{:.language-css}` es. `body[hidden]{ color: hsl(30, 40%, 50%);}`{:.language-css}  
+- HTML: `{:.language-html}` es. `<p data-type='ciro'></p>`{:.language-html}
+
+Style with language: [Rouge languages list](https://rouge-ruby.github.io/docs/file.Languages.html){:.github}
+
+<div class='flex flex-start childs-no-margin' markdown='1'>
+```c
+// language-c
+YYYY-MM-DDTHH:mm
+url/path
+```
+```sass
+// language_sass
+YYYY-MM-DDTHH:mm
+url/path
+```
+```make
+# language-make
+YYYY-MM-DDTHH:mm
+url/path
+```
+```pony
+// language-pony
+YYYY-MM-DDTHH:mm
+url/path
+```
+</div>
+
+### Block
 
 __Fenced__  
 <code>```yml ... ```</code>
@@ -83,21 +115,6 @@ Support `background-{color}` classes, changing border color.
 |:---|:---
 |`__` `**`|__Bold__
 |`_` `*`|_Italic_
-
-|HTML|Result
-|:---|:---
-|`del`|<del>Deleted</del>
-|`ins`|<ins>Inserted</ins>
-|`abbr[title]`|<abbr title="Abbreviation">Abbreviation</abbr>
-|`cite`|<cite>Cite</cite>
-|`kbd`|<kbd>Ctrl + S</kbd>
-|`samp`|<samp>Sample</samp>
-|`mark`|<mark>Highlighted</mark>
-|`s`|<s>Strikethrough</s>
-|`u`|<u>Underline</u>
-|`small`|<small>small</small>
-|`sub`|Text<sub>Sub</sub>
-|`sup`|Text<sup>Sup</sup>
 
 ## Abbreviations
 
